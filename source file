@@ -1,0 +1,112 @@
+#include "header.h"
+#include <iostream>
+using namespace std;
+#include <iomanip> // for std::setfill and std::setw
+
+
+Time::Time(int h,int m) {
+    cout << "hour value or press 0"<<endl;
+    cin >>h;
+    cout << "minute value or press 0"<<endl;
+    cin >>m;
+    if((0<=h<=24) & (0<=m<=60)) {
+        hour = h;
+        minute = m;
+    } else {
+        hour = 0;
+        minute = 0;
+        cout<<"incorrect input clock arranged to 00:00"<<endl;
+    };
+};
+
+void Time::increment_minute() {
+    minute++;
+};
+
+void Time::display_time() {
+    cout << setfill('0') << setw(2) << hour << ":" << setfill('0') << setw(2) << minute << endl;
+};
+
+
+void Time::decrement_minute() {
+
+    minute--;
+
+};
+
+void Time::set_minute(int m) {
+
+    minute = m;
+
+};
+
+
+void Time::set_hour(int h) {
+
+    hour = h;
+
+};
+
+int Time::get_minute() {
+
+    return minute;
+
+};
+int Time::get_hour() {
+
+    return hour;
+
+};
+
+// TIMEZONE
+
+TimeZone::TimeZone(int h, int m, int t) : Time(h,m), time_zone(t) {
+
+    cout<<"give time zone value between -11 and 12"<<endl;
+    cin >> t;
+    time_zone= t;
+
+};
+
+
+void TimeZone::change_time_zone(int new_value) {
+    int former_time_zone = time_zone;
+    time_zone = new_value;
+    change_time_when_zone_changed(former_time_zone , time_zone);
+
+};
+
+void TimeZone::get_time_zone() {
+
+    cout<<time_zone<<endl;
+
+};
+
+void TimeZone::display_time_and_time_zone() {
+
+    cout<<timezone<<flush;
+    display_time();
+};
+
+void TimeZone::change_time_when_zone_changed(int f,int t) {
+
+    int difference = f-t;
+    int hour_will_be_changed = get_hour();
+    int minute_will_be_same = get_minute();
+    int new_hour = hour_will_be_changed-(f-t) ;
+    string sign;
+    if(new_hour>=0) {
+        sign = "+";
+    } else {
+        sign = "-";
+    };
+    cout<<"GMT"<< t << sign <<new_hour<<":"<<minute_will_be_same<<endl;
+};
+
+
+
+
+
+
+
+
